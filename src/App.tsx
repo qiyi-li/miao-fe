@@ -7,7 +7,18 @@ export const App = defineComponent({
     const onClick = ()=>refCount.value+=1
     return () => (
       <div>
+        <header>
+          <ul>
+            <li>
+              <router-link to="/">Foo</router-link>
+            </li>
+            <li>
+            <router-link to="/bar">Bar</router-link>
+            </li>
+          </ul>
+        </header>
         <RouterView/>
+        <footer>footer</footer>
       </div>)
   }
 })
