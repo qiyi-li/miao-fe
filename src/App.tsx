@@ -8,14 +8,6 @@ export const App = defineComponent({
     return () => (
       <div>
         <header>
-          <ul>
-            <li>
-              <router-link to="/">Foo</router-link>
-            </li>
-            <li>
-            <router-link to="/bar">Bar</router-link>
-            </li>
-          </ul>
         </header>
         <RouterView/>
         <footer>footer</footer>
