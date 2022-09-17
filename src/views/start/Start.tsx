@@ -7,9 +7,6 @@ import { NavBar } from '../../shared/NavBar/NavBar';
 import s from './Start.module.scss'
 export const Start = defineComponent({
     setup(props, context) {
-        const onClick = () => {
-            console.log('click')
-        }
         return () => (
             <div class={s.start}>
                 <NavBar>
@@ -23,7 +20,7 @@ export const Start = defineComponent({
                 </Center>
 
                 <div class={s.button_wrapper}>
-                    <Button onClick={onClick} class={s.button}>
+                    <Button class={s.button}>
                         开始记账
                     </Button>
                 </div>
