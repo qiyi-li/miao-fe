@@ -4,7 +4,7 @@ import { FloatButton } from '../../shared/FloatButton/FloatButton';
 import s from './Start.module.scss'
 export const Start = defineComponent({
     setup(props, context) {
-        const onClick = ()=>{
+        const onClick = () => {
             console.log('click')
         }
         return () => (
@@ -15,7 +15,7 @@ export const Start = defineComponent({
                     <div class={s.button_wrapper}>
                         <Button onClick={onClick} class={s.button}>123123123</Button>
                     </div>
-                    <FloatButton/>
+                    <FloatButton iconName={'add'}/>
                 </main>
             </div>
         )
