@@ -1,18 +1,20 @@
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { Button } from '../../shared/Button/Button';
 import { Center } from '../../shared/Center/Center';
 import { FloatButton } from '../../shared/FloatButton/FloatButton';
 import { Icon } from '../../shared/Icon/Icon';
 import { NavBar } from '../../shared/NavBar/NavBar';
+import { Overlay } from '../../shared/Overlay/Overlay';
 import s from './Start.module.scss'
 export const Start = defineComponent({
     setup(props, context) {
+        const overlayVisible = ref(false)
         return () => (
             <div class={s.start}>
                 <NavBar>
                     {{
-                        default: '山竹记账',
-                        icon: <Icon name='menu' class={s.navIcon} />
+                        default: () => '山竹记账',
+                        icon: () => <Icon name='menu' class={s.navIcon} onClick={() => { console.log('click'); overlayVisible.value = !overlayVisible.value }} />
                     }}
                 </NavBar>
                 <Center class={s.pig_wrapper}>
@@ -25,6 +27,9 @@ export const Start = defineComponent({
                     </Button>
                 </div>
                 <FloatButton iconName={'add'} />
+                {
+                    overlayVisible.value && <Overlay onClose={() => overlayVisible.value = false} />
+                }
             </div>
         )
     }
