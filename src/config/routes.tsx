@@ -7,8 +7,8 @@ import { Second } from "../components/welcome/Second";
 import { SecondActions } from "../components/welcome/SecondActions";
 import { Third } from "../components/welcome/Third";
 import { ThirdActions } from "../components/welcome/ThirdActions";
-import { Start } from "../views/Start";
-import { Welcome } from "../views/Welcome";
+import { Start } from "../views/start/Start";
+import { Welcome } from "../views/welcome/Welcome";
 
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/welcome' },

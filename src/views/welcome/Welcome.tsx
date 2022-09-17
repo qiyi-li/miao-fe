@@ -1,8 +1,8 @@
 import { defineComponent, h, ref, Transition, VNode, watchEffect } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterView, useRoute, useRouter } from 'vue-router';
 import s from './Welcome.module.scss'
-import { useSwipe } from '../hooks/useSwipe';
-import { throttle } from '../shared/throttle';
+import { useSwipe } from '../../hooks/useSwipe';
+import { throttle } from '../../shared/throttle';
 
 const nameToPathMap: Record<string, string> = {
   'Welcome1': '/welcome/2',

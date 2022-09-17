@@ -1,0 +1,9 @@
+.start{
+    border: 1px solid red;
+}
+.button{
+    width: 100%;
+    &_wrapper{
+        padding: 16px;
+    }
+}
