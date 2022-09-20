@@ -1,16 +1,19 @@
 import { RouteRecordRaw } from "vue-router";
 import { ItemCreate } from "../components/Item/ItemCreate/ItemCreate";
 import { ItemList } from "../components/Item/ItemList/ItemList";
-import { First } from "../components/welcome/First";
-import { FirstActions } from "../components/welcome/FirstActions";
-import { Forth } from "../components/welcome/Forth";
-import { ForthActions } from "../components/welcome/ForthActions";
-import { Second } from "../components/welcome/Second";
-import { SecondActions } from "../components/welcome/SecondActions";
-import { Third } from "../components/welcome/Third";
-import { ThirdActions } from "../components/welcome/ThirdActions";
+import { TagCreate } from "../components/Tag/TagCreate/TagCreate";
+import { TagEdit } from "../components/Tag/TagEdit/TagEdit";
+import { First } from "../components/Welcome/First";
+import { FirstActions } from "../components/Welcome/FirstActions";
+import { Forth } from "../components/Welcome/Forth";
+import { ForthActions } from "../components/Welcome/ForthActions";
+import { Second } from "../components/Welcome/Second";
+import { SecondActions } from "../components/Welcome/SecondActions";
+import { Third } from "../components/Welcome/Third";
+import { ThirdActions } from "../components/Welcome/ThirdActions";
 import { ItemPage } from "../views/ItemPage/ItemPage";
 import { Start } from "../views/start/Start";
+import { Tag } from "../views/Tag/Tag";
 import { Welcome } from "../views/welcome/Welcome";
 
 export const routes: RouteRecordRaw[] = [
@@ -36,6 +39,13 @@ export const routes: RouteRecordRaw[] = [
     children: [
       { path: '', component: ItemList },
       { path: 'create', component: ItemCreate }
+    ]
+  },
+  {
+    path: '/tags', component: Tag,
+    children: [
+      { path: 'create', component: TagCreate },
+      { path: ':id', component: TagEdit }
     ]
   }
 ]
