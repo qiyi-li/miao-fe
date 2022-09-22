@@ -36,63 +36,7 @@
     padding: 16px;
 }
 
-.emoji_list {
-    border: 1px solid var(--input-border-color);
-    border-radius: var(--input-radius);
-    font-size: 18px;
-    font-size: 14px;
 
-    &.error {
-        border-color: var(--error-color);
-    }
-
-    >nav {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow: auto;
-        padding: 0 4px;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
-
-        >span {
-            flex-shrink: 0;
-            display: inline-block;
-            padding: 8px;
-            color: var(--emoji-nav-text);
-
-            &.selected {
-                color: var(--emoji-nav-text-selected);
-            }
-        }
-    }
-
-    >ol {
-        display: flex;
-        flex-wrap: wrap;
-        font-size: 22px;
-        line-height: 32px;
-        max-height: calc(32px * 12);
-        @media (min-aspect-ratio: 10/18) {
-            max-height: calc(32px * 7);
-        }
-        overflow: auto;
-        padding: 0 4px;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
-
-        >li {
-            flex-shrink: 0;
-            flex-grow: 0;
-            width: 10%;
-            text-align: center;
-        }
-    }
-
-}
 
 .tips {
     text-align: center;
