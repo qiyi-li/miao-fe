@@ -17,7 +17,7 @@ export const ItemCreate = defineComponent({
             <MainLayout>{{
                 title: () => '记一笔',
                 icon: () => <Icon name='left' class={s.navIcon} />,
-                main: () => <>
+                main: () => <div class={s.container}>
                     <Tabs v-model:selected={selectedTabKey.value}>
                         <Tab name='支出'>123123123</Tab>
                         <Tab name='收入'>收5464564564入</Tab>
@@ -25,7 +25,7 @@ export const ItemCreate = defineComponent({
                     <div class={s.inputPad_wrapper}>
                         <InputPad />
                     </div>
-                </>
+                </div>
             }}</MainLayout>
         )
     }
