@@ -25,12 +25,15 @@ export const TagCreate = defineComponent({
                 { key: 'sign', type: 'required', value: true, }
             ]
             Object.assign(errors, validate(roles, formData))
+            if(!(errors?.name?.length||errors?.sign?.length)){
+                console.log({formData})
+            }
         }
         return () => (<MainLayout>{{
             title: () => '新建标签',
             icon: () => <Icon name='left' />,
             main: () => {
-                return <form class={s.form} onSubmit={(e) => onSubmit(e)}>
+                return <form class={s.form} onSubmit={onSubmit}>
                     <div class={s.form_item}>
                         <label for="name">标签名</label>
                         <input type="text" v-model={formData.name} class={s.input} name="name" />

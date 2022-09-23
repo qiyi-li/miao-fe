@@ -23,7 +23,6 @@ export const validate = <T extends FData>(Rules: Rules<T>, formData: T) => {
         switch (type) {
             case "pattern":
                 if (itemValue && !value.test(itemValue.toString())) {
-                    console.log(errors)
                     errors[key] = errors[key] ?? []
                     errors[key]?.push(message)
                 }
