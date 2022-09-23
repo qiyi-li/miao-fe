@@ -3,7 +3,7 @@ import { emojiList } from '../emojiList';
 import s from './EmojiSelect.module.scss';
 export const EmojiSelect = defineComponent({
     props: {
-        name: {
+        sign: {
             type: String as PropType<string>
         }
     },
@@ -35,15 +35,18 @@ export const EmojiSelect = defineComponent({
             const selectedItem = table[refSelected.value][1]
             return selectedItem.map(category =>
                 emojiList.find(item => item[0] === category)?.[1]
-                    .map(item => <li>{item}</li>)
+                    .map(item =>
+                        <li class={item === props.sign ? s.selectedEmoji : ''}
+                            onClick={() => context.emit('update:sign', item)}>
+                            {item}
+                        </li>)
             )
         })
-        console.log({ emojis })
         return () => (
             <div class={s.emojiList}>
                 <nav>
                     {table.map((item, index) => {
-                       return <span class={index === refSelected.value ? s.selected : ''}
+                        return <span class={index === refSelected.value ? s.selected : ''}
                             onClick={() => { console.log('click', index); refSelected.value = index }}>
                             {item[0]}
                         </span>

@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, reactive, ref } from 'vue';
 import { Button } from '../../../shared/Button/Button';
 import { EmojiSelect } from '../../../shared/EmojiSelect/EmojiSelect';
 import { Icon } from '../../../shared/Icon/Icon';
@@ -11,6 +11,11 @@ export const TagCreate = defineComponent({
         }
     },
     setup(props, context) {
+        const selectEmoji = ref('')
+        const formData = reactive({
+            name: '',
+            sign: 'x',
+        })
         return () => (<MainLayout>{{
             title: () => '新建标签',
             icon: () => <Icon name='left' />,
@@ -24,9 +29,9 @@ export const TagCreate = defineComponent({
                         </div>
                     </div>
                     <div class={[s.form_item,]}>
-                        <label for="emoji">符号</label>
+                        <label for="emoji">符号{formData.sign}</label>
                         <div class={s.emoji_list}>
-                            <EmojiSelect />
+                            <EmojiSelect v-model:sign={formData.sign} />
                         </div>
                         <div class={s.form_item_errorHint}>
                             <span>必填</span>
