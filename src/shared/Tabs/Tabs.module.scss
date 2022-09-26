@@ -6,6 +6,8 @@
         align-items: center;
         text-align: center;
         color: var(--navbar-text);
+        background: var(--navbar-bg-end);
+        margin-top: -1px;
 
         >li {
             flex-grow: 1;

@@ -6,6 +6,9 @@ export const Tabs = defineComponent({
             type: String as PropType<string>,
             required: false
         },
+        classPrefix: {
+            type: String
+        },
         onChange: {
             type: Function as PropType<(name: string) => void>,
             required: false
@@ -24,12 +27,13 @@ export const Tabs = defineComponent({
                 // throw new Error('Tabs cannot use other than Tab')
             }
         }
-        return () => (<div class={s.tabs}>
-            <ol class={s.tabs_nav}>
+        const cp = props.classPrefix
+        return () => (<div class={[s.tabs,cp+'tabs']}>
+            <ol class={[s.tabs_nav,cp+'_tabs_nav']}>
                 {eles.map((item, index) => {
                     return <li key={index}
                         onClick={() => context.emit('update:selected', item.props?.name)}
-                        class={item.props?.name === props.selected ? s.selected : ''}>
+                        class={[item.props?.name === props.selected ? s.selected : '',cp+'_tabs_nav_item']}>
                         {item.props?.name}
                     </li>
                 })}
