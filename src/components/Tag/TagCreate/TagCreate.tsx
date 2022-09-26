@@ -9,7 +9,7 @@ export const TagCreate = defineComponent({
             type: String as PropType<string>
         }
     },
-    setup(props, context) {
+    setup(props, context) { 
         const errors = reactive<{ [f in keyof FData]?: string[] }>({})
         const formData: FData = reactive({
             name: '',

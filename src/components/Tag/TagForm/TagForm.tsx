@@ -16,7 +16,7 @@ export const TagForm = defineComponent({
             sign: '',
         })
         const onSubmit = (e: Event) => {
-            e.stopPropagation()
+            e.preventDefault()
             const roles: Rules<typeof formData> = [
                 { key: 'name', type: 'required', value: true, },
                 { key: 'name', type: 'pattern', value: /^.{1,4}$/, message: '只能填 1 到 4 个字符' },
