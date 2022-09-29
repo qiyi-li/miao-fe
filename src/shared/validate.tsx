@@ -1,6 +1,5 @@
-type FData = {
-    name?: string,
-    sign?: string
+interface FData {
+    [k: string]: string | number | null | undefined | FData
 }
 type Rule<T> = {
     key: keyof T,
@@ -18,7 +17,7 @@ export const validate = <T extends FData>(Rules: Rules<T>, formData: T) => {
     const errors: Errors = {}
     Rules.forEach((Rule) => {
         const { type, value, key, message } = Rule
-        
+
         const itemValue = formData[key]
         switch (type) {
             case "pattern":
