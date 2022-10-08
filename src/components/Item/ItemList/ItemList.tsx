@@ -1,5 +1,6 @@
 import { Overlay } from 'vant';
 import { defineComponent, PropType, reactive, ref, watchEffect } from 'vue';
+import { Form, FormItem } from '../../../shared/Form/Form';
 import { Icon } from '../../../shared/Icon/Icon';
 import { Tabs, Tab } from '../../../shared/Tabs/Tabs';
 import { Time } from '../../../shared/time';
@@ -15,9 +16,8 @@ export const ItemList = defineComponent({
     setup(props, context) {
         const refSelected = ref('本月')
         const time = new Time()
-        console.log({ time })
         const customTime = reactive({
-            start: new Time(), end: new Time()
+            start: new Time().format(), end: new Time().format()
         })
         const timeList = [
             {
@@ -42,7 +42,7 @@ export const ItemList = defineComponent({
         return () => (<MainLayout>{
             {
                 title: () => '山竹记账',
-                icon: () => <Icon name="menu" onClick={()=>refOverlayVisible.value=true}/>,
+                icon: () => <Icon name="menu" onClick={() => refOverlayVisible.value = true} />,
                 main: () => (
                     <>
                         <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}>
@@ -66,8 +66,8 @@ export const ItemList = defineComponent({
                             </Tab>
                             <Tab name="自定义时间">
                                 <ItemSummary
-                                    startDate={customTime.start.format()}
-                                    endDate={customTime.end.format()}
+                                    startDate={customTime.start}
+                                    endDate={customTime.end}
                                 />
                             </Tab>
                         </Tabs>
@@ -77,14 +77,9 @@ export const ItemList = defineComponent({
                                     请选择时间
                                 </header>
                                 <main>
-                                    <form>
-                                        <div>
-
-                                        </div>
-                                        <div>
-
-                                        </div>
-                                    </form>
+                                    <Form>
+                                        <FormItem label='开始时间' v-model={customTime.start} type='date' />
+                                    </Form>
                                 </main>
                             </div>
                         </Overlay>
