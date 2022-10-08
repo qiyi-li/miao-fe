@@ -14,6 +14,7 @@ export const Tabs = defineComponent({
             required: false
         }
     },
+    emits: ['update:selected'],
     setup(props, context) {
         const { slots } = context
         const eles = slots.default?.() || []
