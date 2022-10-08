@@ -3,6 +3,7 @@ import { defineComponent, PropType, reactive, ref, watchEffect } from 'vue';
 import { Form, FormItem } from '../../../shared/Form/Form';
 import { Icon } from '../../../shared/Icon/Icon';
 import { Tabs, Tab } from '../../../shared/Tabs/Tabs';
+import { Button } from '../../../shared/Button/Button'
 import { Time } from '../../../shared/time';
 import { MainLayout } from '../../Layouts/MainLayout';
 import { ItemSummary } from '../ItemSummary/ItemSummary';
@@ -39,6 +40,10 @@ export const ItemList = defineComponent({
             }
         })
         const refOverlayVisible = ref(false)
+        const onSubmitCustomTime = (e: Event) => {
+            e.preventDefault()
+            refOverlayVisible.value = false
+        }
         return () => (<MainLayout>{
             {
                 title: () => '山竹记账',
@@ -71,14 +76,21 @@ export const ItemList = defineComponent({
                                 />
                             </Tab>
                         </Tabs>
-                        <Overlay show={refOverlayVisible.value} class={s.overlay} >
+                        <Overlay show={refOverlayVisible.value}  class={s.overlay} >
                             <div class={s.overlay_inner}>
                                 <header>
                                     请选择时间
                                 </header>
                                 <main>
-                                    <Form>
+                                    <Form onSubmit={onSubmitCustomTime}>
                                         <FormItem label='开始时间' v-model={customTime.start} type='date' />
+                                        <FormItem label='结束时间' v-model={customTime.end} type='date' />
+                                        <FormItem>
+                                            <div class={s.actions}>
+                                                <button type="button">取消</button>
+                                                <button type="submit">确认</button>
+                                            </div>
+                                        </FormItem>
                                     </Form>
                                 </main>
                             </div>

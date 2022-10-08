@@ -3,6 +3,7 @@ import { DatetimePicker, Popup } from 'vant';
 import { Time } from '../time';
 import { EmojiSelect } from '../EmojiSelect/EmojiSelect';
 import s from './Form.module.scss';
+import dayjs from 'dayjs';
 export const Form = defineComponent({
   props: {
     onSubmit: {
@@ -55,8 +56,8 @@ export const FormItem = defineComponent({
               onClick={() => { refDateVisible.value = true }}
               class={[s.formItem,s.input]}
             />
-            <Popup position='bottom' v-model:show={refDateVisible.value}>
-              <DatetimePicker value={props.modelValue} type="date" title="选择年月日"
+            <Popup position='bottom' close-on-click-overlay={false} v-model:show={refDateVisible.value}>
+              <DatetimePicker value={new Date(props.modelValue||'')} type="date" title="选择年月日"
                 onConfirm={(date: Date) => {
                   context.emit('update:modelValue', new Time(date).format())
                   refDateVisible.value = false
