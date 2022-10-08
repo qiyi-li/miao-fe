@@ -42,6 +42,9 @@ export const FormItem = defineComponent({
         case 'emojiSelect':
           return <EmojiSelect
             v-model:sign={props.modelValue}
+            onUpdateModelValue={value => {
+              context.emit('update:modelValue', value)
+            }}
             class={[s.formItem, s.emojiList, s.error]} />
         case 'date':
           return <input />

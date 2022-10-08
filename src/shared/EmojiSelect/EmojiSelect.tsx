@@ -5,7 +5,10 @@ export const EmojiSelect = defineComponent({
     props: {
         sign: {
             type: String as PropType<string>
-        }
+        },
+        onUpdateModelValue: {
+            type: Function as PropType<(emoji: string) => void>
+          }
     },
     setup: (props, context) => {
         const refSelected = ref(0)
@@ -30,6 +33,14 @@ export const EmojiSelect = defineComponent({
             ['运动', ['sport', 'game']],
         ]
 
+        const onClickEmoji = (emoji: string) => {
+            console.log(emoji)
+            if (props.onUpdateModelValue) {
+              props.onUpdateModelValue(emoji)
+            } else {
+              context.emit('update:sign', emoji)
+            }
+          }
 
         const emojis = computed(() => {
             const selectedItem = table[refSelected.value][1]
@@ -37,7 +48,7 @@ export const EmojiSelect = defineComponent({
                 emojiList.find(item => item[0] === category)?.[1]
                     .map(item =>
                         <li class={item === props.sign ? s.selectedEmoji : ''}
-                            onClick={() => context.emit('update:sign', item)}>
+                            onClick={() => onClickEmoji(item)}>
                             {item}
                         </li>)
             )
