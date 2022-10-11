@@ -4,6 +4,7 @@ import { Time } from '../time';
 import { EmojiSelect } from '../EmojiSelect/EmojiSelect';
 import s from './Form.module.scss';
 import dayjs from 'dayjs';
+import { Button } from '../Button/Button';
 export const Form = defineComponent({
   props: {
     onSubmit: {
@@ -28,11 +29,12 @@ export const FormItem = defineComponent({
       type: [String, Number]
     },
     type: {
-      type: String as PropType<'text' | 'emojiSelect' | 'date'>,
+      type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode'>,
     },
     error: {
       type: String
-    }
+    },
+    placeholder: String,
   },
   emits: ['update:modelValue'],
   setup: (props, context) => {
@@ -41,30 +43,40 @@ export const FormItem = defineComponent({
       switch (props.type) {
         case 'text':
           return <input
+            placeholder={props.placeholder}
             value={props.modelValue}
             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
-            class={[s.formItem, s.input, s.error]} />
+            class={[s.formItem, s.input, props.error && s.error]} />
         case 'emojiSelect':
           return <EmojiSelect
             v-model:sign={props.modelValue}
             onUpdateModelValue={value => {
               context.emit('update:modelValue', value)
             }}
-            class={[s.formItem, s.emojiList, s.error]} />
+            class={[s.formItem, s.emojiList, props.error && s.error]} />
         case 'date':
           return <>
             <input readonly={true} value={props.modelValue}
+              placeholder={props.placeholder}
               onClick={() => { refDateVisible.value = true }}
-              class={[s.formItem,s.input]}
+              class={[s.formItem, s.input, props.error && s.error]}
             />
             <Popup position='bottom' close-on-click-overlay={false} v-model:show={refDateVisible.value}>
-              <DatetimePicker value={new Date(props.modelValue||'')} type="date" title="选择年月日"
+              <DatetimePicker value={new Date(props.modelValue || '')} type="date" title="选择年月日"
                 onConfirm={(date: Date) => {
                   context.emit('update:modelValue', new Time(date).format())
                   refDateVisible.value = false
                 }}
                 onCancel={() => refDateVisible.value = false} />
             </Popup>
+          </>
+        case 'validationCode':
+          return <>
+            <input class={[s.formItem, s.input, s.validationCodeInput]}
+              placeholder={props.placeholder} />
+            <Button class={[s.formItem, s.button, s.validationCodeButton]}>
+              发送验证码
+            </Button>
           </>
         case undefined:
           return context.slots.default?.()
@@ -79,11 +91,9 @@ export const FormItem = defineComponent({
           <div class={s.formItem_value}>
             {content.value}
           </div>
-          {props.error &&
-            <div class={s.formItem_errorHint}>
-              <span>{props.error}</span>
-            </div>
-          }
+          <div class={s.formItem_errorHint}>
+            <span>{props.error ?? '　'}</span>
+          </div>
         </label>
       </div>
     }
