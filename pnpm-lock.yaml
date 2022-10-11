@@ -4,6 +4,7 @@ specifiers:
   '@vitejs/plugin-vue': 2.3.1
   '@vitejs/plugin-vue-jsx': 2.0.0
   dayjs: ^1.11.5
+  echarts: 5.4.0
   sass: ^1.54.6
   svg: 0.1.0
   svgo: 2.8.0
@@ -18,6 +19,7 @@ specifiers:
 
 dependencies:
   dayjs: 1.11.5
+  echarts: 5.4.0
   sass: 1.54.6
   svg: 0.1.0
   svgo: 2.8.0
@@ -907,6 +909,13 @@ packages:
       domelementtype: 2.3.0
       domhandler: 4.3.1
 
+  /echarts/5.4.0:
+    resolution: {integrity: sha512-uPsO9VRUIKAdFOoH3B0aNg7NRVdN7aM39/OjovjO9MwmWsAkfGyeXJhK+dbRi51iDrQWliXV60/XwLA7kg3z0w==}
+    dependencies:
+      tslib: 2.3.0
+      zrender: 5.4.0
+    dev: false
+
   /electron-to-chromium/1.4.233:
     resolution: {integrity: sha512-ejwIKXTg1wqbmkcRJh9Ur3hFGHFDZDw1POzdsVrB2WZjgRuRMHIQQKNpe64N/qh3ZtH2otEoRoS+s6arAAuAAw==}
     dev: true
@@ -1677,6 +1686,10 @@ packages:
     resolution: {integrity: sha512-VSsyNPPW74RpHwR8Fc21uubwHY7wMDeJLys2IX5zJNih+OnAnaifKHo+1LHT7DAdloQ7apeaaWg8l7qnf/TnEg==}
     dev: true
 
+  /tslib/2.3.0:
+    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
+    dev: false
+
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
     dev: false
@@ -1966,3 +1979,9 @@ packages:
   /yallist/4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
     dev: true
+
+  /zrender/5.4.0:
+    resolution: {integrity: sha512-rOS09Z2HSVGFs2dn/TuYk5BlCaZcVe8UDLLjj1ySYF828LATKKdxuakSZMvrDz54yiKPDYVfjdKqcX8Jky3BIA==}
+    dependencies:
+      tslib: 2.3.0
+    dev: false

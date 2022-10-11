@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.5",
+    "echarts": "5.4.0",
     "sass": "^1.54.6",
     "svg": "0.1.0",
     "svgo": "2.8.0",
