@@ -1,13 +1,12 @@
 import { Overlay } from 'vant';
 import { defineComponent, PropType, reactive, ref, watchEffect } from 'vue';
 import { Form, FormItem } from '../../../shared/Form/Form';
-import { Icon } from '../../../shared/Icon/Icon';
 import { Tabs, Tab } from '../../../shared/Tabs/Tabs';
-import { Button } from '../../../shared/Button/Button'
 import { Time } from '../../../shared/time';
 import { MainLayout } from '../../Layouts/MainLayout';
 import { ItemSummary } from '../ItemSummary/ItemSummary';
 import s from './ItemList.module.scss'
+import { OverlayIcon } from '../../../shared/Overlay/Overlay';
 export const ItemList = defineComponent({
     props: {
         name: {
@@ -42,7 +41,7 @@ export const ItemList = defineComponent({
         return () => (<MainLayout>{
             {
                 title: () => '山竹记账',
-                icon: () => <Icon name="menu" onClick={() => refOverlayVisible.value = true} />,
+                icon: () => <OverlayIcon/>,
                 main: () => (
                     <>
                         <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}
