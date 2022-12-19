@@ -6,6 +6,7 @@ import {Icon} from '../../shared/Icon/Icon';
 import s from './SignIn.module.scss';
 import axios from 'axios';
 import {validate} from '../../shared/validate';
+import {http} from '../../shared/HttpClient';
 
 export const SignIn = defineComponent({
   props: {
@@ -14,7 +15,7 @@ export const SignIn = defineComponent({
     }
   },
   setup(props, context) {
-    const refValidationCode = ref<any>()
+    const refValidationCode = ref<any>();
     const formData = reactive({
       email: '',
       code: '',
@@ -23,32 +24,35 @@ export const SignIn = defineComponent({
       email: [],
       code: []
     });
-    const judgeEmail = ()=>{
-      errors.email=[]
+    const judgeEmail = () => {
+      errors.email = [];
       Object.assign(errors, validate([
         {key: 'email', type: 'required', value: true},
-        {key: 'email', type: 'pattern', value: /.+@.+/, message: '必须是邮箱地址'},
+        {key: 'email', type: 'pattern', value: /.+@.+/, message: '输入正确的邮箱地址'},
       ], formData));
-      return errors.email.join('')
-    }
+      return errors.email.join('');
+    };
     const onSubmit = (e: Event) => {
       Object.assign(errors, {
         email: [], code: []
       });
       Object.assign(errors, validate([
         {key: 'email', type: 'required', value: true},
-        {key: 'email', type: 'pattern', value: /.+@.+/, message: '必须是邮箱地址'},
+        {key: 'email', type: 'pattern', value: /.+@.+/, message: '输入正确的邮箱地址'},
         {key: 'code', type: 'required', value: true},
       ], formData));
       console.log(1111, errors, formData);
     };
     const sendValidationCode = async () => {
       console.log('send');
-      const response = await axios.post('/api/v1/validation_codes', {email: formData.email}).catch((e)=>{
-        console.error(e)
-      })
+      const response = await http.post('/validation_codes', {email: formData.email}).catch((e: any) => {
+        if (e.response.status === 422) {
+          Object.assign(errors, e.response.data.errors);
+        }
+        throw e
+      });
       console.log({response});
-      refValidationCode.value.startCount()
+      refValidationCode.value.startCount();
     };
 
     return () => (
