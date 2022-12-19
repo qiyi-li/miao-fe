@@ -1,4 +1,4 @@
-import {defineComponent, PropType, reactive} from 'vue';
+import {defineComponent, PropType, reactive, ref} from 'vue';
 import {MainLayout} from '../../components/Layouts/MainLayout';
 import {Button} from '../../shared/Button/Button';
 import {Form, FormItem} from '../../shared/Form/Form';
@@ -14,6 +14,7 @@ export const SignIn = defineComponent({
     }
   },
   setup(props, context) {
+    const refValidationCode = ref<any>()
     const formData = reactive({
       email: '',
       code: '',
@@ -43,8 +44,11 @@ export const SignIn = defineComponent({
     };
     const sendValidationCode = async () => {
       console.log('send');
-      // const response = await axios.post('/api/v1/validation_codes', {email: formData.email});
-      // console.log({response});
+      const response = await axios.post('/api/v1/validation_codes', {email: formData.email}).catch((e)=>{
+        console.error(e)
+      })
+      console.log({response});
+      refValidationCode.value.startCount()
     };
 
     return () => (
@@ -62,6 +66,7 @@ export const SignIn = defineComponent({
                         placeholder="请输入邮箱，然后点击发送验证码"
                         v-model={formData.email} error={errors.email?.[0]}/>
               <FormItem onClick={sendValidationCode} judge={judgeEmail} label="验证码" type="validationCode"
+                        ref={refValidationCode}
                         placeholder="请输入六位数字"
                         v-model={formData.code} error={errors.code?.[0]}/>
               <FormItem style={{paddingTop: '96px'}}>

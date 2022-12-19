@@ -53,22 +53,21 @@ export const FormItem = defineComponent({
     const timer = ref<number>();
     const count = ref<number>(props.countForm);
     const isCounting = computed(() => !!timer.value);
-    console.log(isCounting);
     const onClickSendCode = () => {
       const err = props.judge?.();
-      if (!err) {
-        props.onClick?.();
-        timer.value = setInterval(() => {
-          count.value -= 1;
-          if (count.value === 0) {
-            clearInterval(timer.value);
-            timer.value = undefined;
-            count.value = props.countForm || 60;
-          }
-        }, 1000);
-      }
-
+      if (!err) props.onClick?.()
     };
+    const startCount = ()=>{
+      timer.value = setInterval(() => {
+        count.value -= 1;
+        if (count.value === 0) {
+          clearInterval(timer.value);
+          timer.value = undefined;
+          count.value = props.countForm || 60;
+        }
+      }, 1000);
+    }
+    context.expose({startCount})
     const content = computed(() => {
       switch (props.type) {
         case 'text':
