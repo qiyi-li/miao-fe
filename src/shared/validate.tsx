@@ -27,7 +27,7 @@ export const validate = <T extends FData>(Rules: Rules<T>, formData: T) => {
                 }
                 break;
             case "required":
-                if (value && (!itemValue || itemValue === null)) {
+                if (value && (!itemValue)) {
                     errors[key] = errors[key] ?? []
                     errors[key]?.push('必填')
                 }

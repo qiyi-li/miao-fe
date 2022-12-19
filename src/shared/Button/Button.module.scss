@@ -10,6 +10,10 @@
     }
     &.important {
     }
+    &.disabled{
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
     &.danger {
       background: var(--button-bg-danger);
       border-color: var(--button-bg-danger);

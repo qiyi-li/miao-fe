@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from 'vue';
+import {defineComponent, PropType} from 'vue';
 import s from './Button.module.scss';
 
 export const Button = defineComponent({
@@ -11,14 +11,20 @@ export const Button = defineComponent({
       default: 'important'
     },
     type: {
-      type: String as PropType<'submit' | 'button'>
+      type: String as PropType<'submit' | 'button'>,
+      default: 'button'
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(props, context) {
     return () => (
-      <button type={props.type} onClick={props.onClick} class={[s.button, s[props.level]]}>
+      <button type={props.type} disabled={props.disabled} onClick={ props.onClick}
+              class={[s.button, s[props.level],props.disabled?s.disabled:'']}>
         {context.slots.default?.()}
       </button>
-    )
+    );
   }
-})
+});
