@@ -4,10 +4,10 @@ import {Button} from '../../shared/Button/Button';
 import {Form, FormItem} from '../../shared/Form/Form';
 import {Icon} from '../../shared/Icon/Icon';
 import s from './SignIn.module.scss';
-import axios from 'axios';
 import {judgeError, validate} from '../../shared/validate';
 import {http} from '../../shared/HttpClient';
 import {useBool} from '../../hooks/useBool';
+import {history} from '../../shared/history';
 
 export const SignIn = defineComponent({
   props: {
@@ -17,7 +17,7 @@ export const SignIn = defineComponent({
   },
   setup(props, context) {
     const refValidationCode = ref<any>();
-    const {ref:refValidationButtonDisabled,on,off} = useBool(false);
+    const {ref: refValidationButtonDisabled, on, off} = useBool(false);
     const formData = reactive({
       email: '',
       code: '',
@@ -34,7 +34,7 @@ export const SignIn = defineComponent({
       ], formData));
       return errors.email.join('');
     };
-    const onSubmit = async(e: Event) => {
+    const onSubmit = async () => {
       Object.assign(errors, {
         email: [], code: []
       });
@@ -43,12 +43,19 @@ export const SignIn = defineComponent({
         {key: 'email', type: 'pattern', value: /.+@.+/, message: '输入正确的邮箱地址'},
         {key: 'code', type: 'required', value: true},
       ], formData));
-      if(!judgeError(errors)){
-        const response = await http.post('/session', formData);
+      if (!judgeError(errors)) {
+        const response = await http.post<{ jwt: string }>('/session', formData).catch((err) => {
+          if (err.response.status === 422) {
+            Object.assign(errors, err.response.data);
+          }
+          throw err
+        });
+        localStorage.setItem('jwt', response.data.jwt);
+        history.push('/');
       }
     };
     const sendValidationCode = async () => {
-      on()
+      on();
       const response = await http.post('/validation_codes', {email: formData.email})
         .catch((e: any) => {
           if (e.response.status === 422) {
