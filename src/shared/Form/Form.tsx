@@ -1,11 +1,9 @@
-import {computed, defineComponent, PropType, ref, VNode} from 'vue';
+import {computed, defineComponent, PropType, ref} from 'vue';
 import {DatetimePicker, Popup} from 'vant';
 import {Time} from '../time';
 import {EmojiSelect} from '../EmojiSelect/EmojiSelect';
 import s from './Form.module.scss';
-import dayjs from 'dayjs';
 import {Button} from '../Button/Button';
-import {FunnelChart} from 'echarts/charts';
 
 export const Form = defineComponent({
   props: {
@@ -103,6 +101,8 @@ export const FormItem = defineComponent({
         case 'validationCode':
           return <>
             <input class={[s.formItem, s.input, s.validationCodeInput]}
+                   value={props.modelValue}
+                   onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
                    placeholder={props.placeholder}/>
             <Button disabled={!!timer.value||props.disabled} onClick={onClickSendCode}
                     class={[s.formItem, s.button, s.validationCodeButton]}>

@@ -5,7 +5,7 @@ import {Form, FormItem} from '../../shared/Form/Form';
 import {Icon} from '../../shared/Icon/Icon';
 import s from './SignIn.module.scss';
 import axios from 'axios';
-import {validate} from '../../shared/validate';
+import {judgeError, validate} from '../../shared/validate';
 import {http} from '../../shared/HttpClient';
 import {useBool} from '../../hooks/useBool';
 
@@ -34,7 +34,7 @@ export const SignIn = defineComponent({
       ], formData));
       return errors.email.join('');
     };
-    const onSubmit = (e: Event) => {
+    const onSubmit = async(e: Event) => {
       Object.assign(errors, {
         email: [], code: []
       });
@@ -43,7 +43,9 @@ export const SignIn = defineComponent({
         {key: 'email', type: 'pattern', value: /.+@.+/, message: '输入正确的邮箱地址'},
         {key: 'code', type: 'required', value: true},
       ], formData));
-      console.log(1111, errors, formData);
+      if(!judgeError(errors)){
+        const response = await http.post('/session', formData);
+      }
     };
     const sendValidationCode = async () => {
       on()

@@ -38,3 +38,7 @@ export const validate = <T extends FData>(Rules: Rules<T>, formData: T) => {
     })
     return errors
 }
+
+export const judgeError = (errors:Record<string, string[]>)=>{
+    return Object.values(errors).flat().join('')
+}
