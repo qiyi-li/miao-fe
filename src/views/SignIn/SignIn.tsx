@@ -8,6 +8,7 @@ import {judgeError, validate} from '../../shared/validate';
 import {http} from '../../shared/HttpClient';
 import {useBool} from '../../hooks/useBool';
 import {history} from '../../shared/history';
+import {useRoute, useRouter} from 'vue-router';
 
 export const SignIn = defineComponent({
   props: {
@@ -16,6 +17,8 @@ export const SignIn = defineComponent({
     }
   },
   setup(props, context) {
+    const router = useRouter();
+    const route = useRoute();
     const refValidationCode = ref<any>();
     const {ref: refValidationButtonDisabled, on, off} = useBool(false);
     const formData = reactive({
@@ -48,10 +51,12 @@ export const SignIn = defineComponent({
           if (err.response.status === 422) {
             Object.assign(errors, err.response.data);
           }
-          throw err
+          throw err;
         });
         localStorage.setItem('jwt', response.data.jwt);
-        history.push('/');
+        // router.push('/sign_in?return_to='+encodeURIComponent(route.fullPath));
+        const returnTo = localStorage.getItem('returnTo') || route.query.return_to?.toString();
+        await router.push(returnTo || '/');
       }
     };
     const sendValidationCode = async () => {
