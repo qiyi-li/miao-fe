@@ -7,6 +7,7 @@ import s from './SignIn.module.scss';
 import axios from 'axios';
 import {validate} from '../../shared/validate';
 import {http} from '../../shared/HttpClient';
+import {useBool} from '../../hooks/useBool';
 
 export const SignIn = defineComponent({
   props: {
@@ -16,6 +17,7 @@ export const SignIn = defineComponent({
   },
   setup(props, context) {
     const refValidationCode = ref<any>();
+    const {ref:refValidationButtonDisabled,on,off} = useBool(false);
     const formData = reactive({
       email: '',
       code: '',
@@ -44,13 +46,14 @@ export const SignIn = defineComponent({
       console.log(1111, errors, formData);
     };
     const sendValidationCode = async () => {
-      console.log('send');
-      const response = await http.post('/validation_codes', {email: formData.email}).catch((e: any) => {
-        if (e.response.status === 422) {
-          Object.assign(errors, e.response.data.errors);
-        }
-        throw e
-      });
+      on()
+      const response = await http.post('/validation_codes', {email: formData.email})
+        .catch((e: any) => {
+          if (e.response.status === 422) {
+            Object.assign(errors, e.response.data.errors);
+          }
+          throw e;
+        }).finally(off);
       console.log({response});
       refValidationCode.value.startCount();
     };
@@ -70,7 +73,7 @@ export const SignIn = defineComponent({
                         placeholder="请输入邮箱，然后点击发送验证码"
                         v-model={formData.email} error={errors.email?.[0]}/>
               <FormItem onClick={sendValidationCode} judge={judgeEmail} label="验证码" type="validationCode"
-                        ref={refValidationCode}
+                        ref={refValidationCode} disabled={refValidationButtonDisabled.value}
                         placeholder="请输入六位数字"
                         v-model={formData.code} error={errors.code?.[0]}/>
               <FormItem style={{paddingTop: '96px'}}>
