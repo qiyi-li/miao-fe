@@ -10,7 +10,6 @@ const router = createRouter({
     history,
     routes:routes
 })
-console.log(123123);
 fetchMe()
 
 router.beforeEach(async (to, from) => {
@@ -18,11 +17,9 @@ router.beforeEach(async (to, from) => {
       || to.path === '/start') {
         return true
     } else {
-        console.log(111);
         return await mePromise!.then(
           () => true,
           () => {
-              console.log(1231231231);
               return '/sign_in?return_to=' + to.path;}
         )
     }
