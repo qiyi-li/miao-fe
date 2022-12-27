@@ -38,7 +38,9 @@ export const Tabs = defineComponent({
                 })}
             </ol>
             <main>
-                {eles.find(i => i.props?.name === props.selected)}
+                {eles.map(item =>
+                  <div v-show={item.props?.name === props.selected}>{item}</div>
+                )}
             </main>
         </div>)
     }
