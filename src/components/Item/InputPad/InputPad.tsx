@@ -70,7 +70,7 @@ export const InputPad = defineComponent({
             { text: () => '1', onClick: () => appendFn('1') },
             { text: () => '2', onClick: () => appendFn('2') },
             { text: () => '3', onClick: () => appendFn('3') },
-            { text: () => <span class={s.AC}>AC</span>, onClick: clear }, ,
+            { text: () => <span class={s.AC}>AC</span>, onClick: clear },
             { text: () => '4', onClick: () => appendFn('4') },
             { text: () => '5', onClick: () => appendFn('5') },
             { text: () => '6', onClick: () => appendFn('6') },
