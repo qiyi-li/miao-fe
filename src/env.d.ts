@@ -23,3 +23,17 @@ type Resources<T = any> = {
     count: number
   }
 }
+type Resource<T> = {
+  resource: T
+}
+type ResourceError = {
+  errors: Record<string, string[]>
+}
+type Item = {
+  id: number,
+  user_id: number,
+  amount: number,
+  tags_id: number[],
+  happened_at: string,
+  kind: expenses | income,
+}

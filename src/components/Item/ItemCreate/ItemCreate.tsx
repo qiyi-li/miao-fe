@@ -1,13 +1,14 @@
-import {defineComponent, onMounted, PropType, ref} from 'vue';
+import {defineComponent, PropType, reactive, ref} from 'vue';
 import {Icon} from '../../../shared/Icon/Icon';
 import {Tab, Tabs} from '../../../shared/Tabs/Tabs';
 import {MainLayout} from '../../Layouts/MainLayout';
 import {InputPad} from '../InputPad/InputPad';
 import s from './ItemCreate.module.scss';
-import {http} from '../../../shared/HttpClient';
-import {Button} from '../../../shared/Button/Button';
-import {useTags} from '../../../shared/useTags';
 import {Tags} from '../../../shared/Tags/Tags';
+import {useRouter} from 'vue-router';
+import {AxiosError} from 'axios';
+import {Dialog} from 'vant';
+import {http} from '../../../shared/HttpClient';
 
 export const ItemCreate = defineComponent({
   props: {
@@ -17,23 +18,29 @@ export const ItemCreate = defineComponent({
   },
   setup(props, context) {
     const selectedTabKey = ref('支出');
-    const {tags: expensesTags, hasMore, fetchTags} = useTags((page) => {
-      return http.get<Resources<Tag>>('/tags', {
-        kind: 'expenses',
-        _mock: 'tagIndex',
-        page: (page + 1).toString()
-      });
+    const formData = reactive({
+      kind: '支出',
+      tags_id: [],
+      amount: 0,
+      happen_at: new Date().toISOString()
     });
-    const { tags: incomeTags,
-      hasMore: hasMore2,
-      fetchTags: fetchTags2
-    } = useTags((page) => {
-      return http.get<Resources<Tag>>('/tags', {
-        kind: 'income',
-        _mock: 'tagIndex',
-        page: (page + 1).toString(),
-      })})
-
+    const router = useRouter();
+    const onError = async (error: AxiosError<ResourceError>) => {
+      if (error.response?.status === 422) {
+        await Dialog.alert({
+          title: '出错',
+          message: Object.values(error.response.data.errors).join('\n')
+        });
+      }
+      throw error;
+    };
+    const onSubmit = async () => {
+      const res = await http.post<Resource<Item>>('/items', formData,
+        {params: {_mock: 'itemCreate'}}
+      ).catch(onError);
+      console.log({res});
+      await router.push('/items');
+    };
 
     const onChange = (name: string) => selectedTabKey.value = name;
     return () => (
@@ -41,16 +48,18 @@ export const ItemCreate = defineComponent({
         title: () => '记一笔',
         icon: () => <Icon name="left" class={s.navIcon}/>,
         main: () => <div class={s.wrapper}>
-          <Tabs v-model:selected={selectedTabKey.value} class={s.tabs}>
+          <Tabs v-model:selected={formData.kind} class={s.tabs}>
             <Tab name="支出">
-              <Tags kind="expenses"/>
+              <Tags kind="expenses" v-model:selected={formData.tags_id[0]}/>
             </Tab>
             <Tab name="收入" class={s.tags_wrapper}>
-              <Tags kind="income"/>
+              <Tags kind="income" v-model:selected={formData.tags_id[0]}/>
             </Tab>
           </Tabs>
           <div class={s.inputPad_wrapper}>
-            <InputPad/>
+            <InputPad v-model:happenAt={formData.happen_at}
+                      onSubmit={onSubmit}
+                      v-model:amount={formData.amount}/>
           </div>
         </div>
       }}</MainLayout>
