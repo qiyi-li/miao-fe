@@ -1,4 +1,4 @@
-import {defineComponent, PropType, reactive, toRaw} from 'vue';
+import {defineComponent, onMounted, PropType, reactive, toRaw} from 'vue';
 import {Button} from '../../../shared/Button/Button';
 import {EmojiSelect} from '../../../shared/EmojiSelect/EmojiSelect';
 import {Form, FormItem} from '../../../shared/Form/Form';
@@ -10,18 +10,23 @@ import {onFormError} from '../../../shared/onFormError';
 
 export const TagForm = defineComponent({
   props: {
-    name: {
-      type: String as PropType<string>
-    }
+    id: Number
   },
   setup(props, context) {
     const route = useRoute();
     const router = useRouter();
     const errors = reactive<{ [f in keyof FData]?: string[] }>({});
     const formData: FData = reactive({
+      id: undefined,
       name: '',
       sign: '',
       kind: route.query.kind as string
+    });
+    onMounted(async () => {
+      if (props.id) {
+        const {data} = await http.get<Resource<Tag>>(`tags/${props.id}`, {_mock: 'tagShow'});
+        Object.assign(formData, data.resource);
+      }
     });
     const onSubmit = async (e: Event) => {
       e.preventDefault();
@@ -32,10 +37,16 @@ export const TagForm = defineComponent({
       ];
       Object.assign(errors, validate(roles, formData));
       if (!(errors?.name?.length || errors?.sign?.length)) {
-       const res= await http.post('/tags', formData, {params: {_mock: 'tagCreate'}}).catch((error) => {
+        const promise = await formData.id ?
+          http.patch(`/tags/${formData.id}`, formData, {
+            params: {_mock: 'tagEdit'},
+          }) :
+          http.post('/tags', formData, {
+            params: {_mock: 'tagCreate'},
+          });
+        await promise.catch((error) => {
           onFormError(error, (data) => Object.assign(errors, data.errors));
         });
-        console.log({res});
         router.back();
       }
     };

@@ -1,5 +1,5 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
-import {mockItemCreate, mockSession, mockTagCreate, mockTagIndex} from '../mock/mock';
+import {mockItemCreate, mockSession, mockTagCreate, mockTagIndex, mockTagShow} from '../mock/mock';
 
 export class Http {
   instance: AxiosInstance;
@@ -48,6 +48,9 @@ const mock = (response: AxiosResponse) => {
       return true;
     case 'tagCreate':
       [response.status, response.data] = mockTagCreate(response.config);
+      return true;
+    case 'tagShow':
+      [response.status, response.data] = mockTagShow(response.config);
       return true;
     default:
       return false;

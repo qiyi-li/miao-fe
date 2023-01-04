@@ -20,6 +20,16 @@ export const mockItemCreate: Mock = config => {
     }
   }];
 };
+export const mockTagShow: Mock = config => {
+  return [200, {
+    resource: {
+      id: createId(),
+      name: faker.lorem.word(),
+      sign: faker.internet.emoji(),
+      kind: 'expenses',
+    }
+  }];
+};
 export const mockTagCreate: Mock = config => {
   console.log({config});
   return [200, {
