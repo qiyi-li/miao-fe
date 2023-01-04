@@ -8,18 +8,29 @@ faker.setLocale('zh_CN');
 export const mockItemCreate: Mock = config => {
   return [200, {
     resource: {
-      "id": 2264,
-      "user_id": 1312,
-      "amount": 9900,
-      "note": null,
-      "tags_id": [3508],
-      "happen_at": "2020-10-29T16:00:00.000Z",
-      "created_at": "2022-07-03T15:35:56.301Z",
-      "updated_at": "2022-07-03T15:35:56.301Z",
-      "kind": "expenses"
+      'id': 2264,
+      'user_id': 1312,
+      'amount': 9900,
+      'note': null,
+      'tags_id': [3508],
+      'happen_at': '2020-10-29T16:00:00.000Z',
+      'created_at': '2022-07-03T15:35:56.301Z',
+      'updated_at': '2022-07-03T15:35:56.301Z',
+      'kind': 'expenses'
     }
-  }]
-}
+  }];
+};
+export const mockTagCreate: Mock = config => {
+  console.log({config});
+  return [200, {
+    resource: {
+      id: createId(),
+      name: faker.lorem.word(),
+      sign: faker.internet.emoji(),
+      kind: config.params.kind,
+    }
+  }];
+};
 
 export const mockSession: Mock = (config) => {
   return [200, {
@@ -27,11 +38,11 @@ export const mockSession: Mock = (config) => {
   }];
 };
 
-  let id = 0;
-  const createId = () => {
-    id += 1;
-    return id;
-  };
+let id = 0;
+const createId = () => {
+  id += 1;
+  return id;
+};
 export const mockTagIndex: Mock = (config) => {
   const {kind, page} = config.params;
   const per_page = 25;

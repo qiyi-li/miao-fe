@@ -5,6 +5,7 @@ import { FData, Rules, validate } from '../../../shared/validate';
 import { MainLayout } from '../../Layouts/MainLayout';
 import s from '../TagForm/TagForm.module.scss'
 import { TagForm } from '../TagForm/TagForm';
+import {BackIcon} from '../../../shared/BackIcon/BackIcon';
 export const TagEdit = defineComponent({
     props: {
         name: {
@@ -31,7 +32,7 @@ export const TagEdit = defineComponent({
         }
         return () => (<MainLayout>{{
             title: () => '编辑标签',
-            icon: () => <Icon name="left" onClick={() => { }} />,
+            icon: () => <BackIcon/>,
             main: () => {
                 return <>
                     <TagForm />

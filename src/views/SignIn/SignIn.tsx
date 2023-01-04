@@ -10,6 +10,7 @@ import {useBool} from '../../hooks/useBool';
 import {history} from '../../shared/history';
 import {useRoute, useRouter} from 'vue-router';
 import {refreshMe} from '../../shared/me';
+import {BackIcon} from '../../shared/BackIcon/BackIcon';
 
 export const SignIn = defineComponent({
   props: {
@@ -57,7 +58,7 @@ export const SignIn = defineComponent({
         localStorage.setItem('jwt', response.data.jwt);
         // router.push('/sign_in?return_to='+encodeURIComponent(route.fullPath));
         const returnTo = localStorage.getItem('returnTo') || route.query.return_to?.toString();
-        await refreshMe()
+        await refreshMe();
         await router.push(returnTo || '/');
       }
     };
@@ -78,7 +79,7 @@ export const SignIn = defineComponent({
       <MainLayout>{
         {
           title: () => '登录',
-          icon: () => <Icon name="left"/>,
+          icon: () => <BackIcon/>,
           main: () => <div class={s.wrapper}>
             <div class={s.logo}>
               <Icon name="mangosteen" class={s.icon}/>

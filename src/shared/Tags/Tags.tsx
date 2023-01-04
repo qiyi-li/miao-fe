@@ -4,6 +4,7 @@ import s from './Tags.module.scss';
 import {http} from '../HttpClient';
 import {Icon} from '../Icon/Icon';
 import {Button} from '../Button/Button';
+import {RouterLink} from 'vue-router';
 
 export const Tags = defineComponent({
   props: {
@@ -27,14 +28,16 @@ export const Tags = defineComponent({
     };
     return () => <>
       <div class={s.tags_wrapper}>
-        <div class={s.tag}>
-          <div class={s.sign}>
-            <Icon name="add" class={s.createTag}/>
+        <RouterLink to={`/tags/create?kind=${props.kind}`}>
+          <div class={s.tag}>
+            <div class={s.sign}>
+              <Icon name="add" class={s.createTag}/>
+            </div>
+            <div class={s.name}>
+              新增
+            </div>
           </div>
-          <div class={s.name}>
-            新增
-          </div>
-        </div>
+        </RouterLink>
         {tags.value.map(tag =>
           <div class={[s.tag, props.selected === tag.id ? s.selected : '']}
                onClick={() => onSelect(tag)}

@@ -1,5 +1,4 @@
 import {defineComponent, PropType, reactive, ref} from 'vue';
-import {Icon} from '../../../shared/Icon/Icon';
 import {Tab, Tabs} from '../../../shared/Tabs/Tabs';
 import {MainLayout} from '../../Layouts/MainLayout';
 import {InputPad} from '../InputPad/InputPad';
@@ -9,6 +8,7 @@ import {useRouter} from 'vue-router';
 import {AxiosError} from 'axios';
 import {Dialog} from 'vant';
 import {http} from '../../../shared/HttpClient';
+import {BackIcon} from '../../../shared/BackIcon/BackIcon';
 
 export const ItemCreate = defineComponent({
   props: {
@@ -46,7 +46,7 @@ export const ItemCreate = defineComponent({
     return () => (
       <MainLayout class={'layout'}>{{
         title: () => '记一笔',
-        icon: () => <Icon name="left" class={s.navIcon}/>,
+        icon: () => <BackIcon/>,
         main: () => <div class={s.wrapper}>
           <Tabs v-model:selected={formData.kind} class={s.tabs}>
             <Tab name="支出">
