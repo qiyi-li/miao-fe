@@ -1,5 +1,5 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
-import {mockItemCreate, mockSession, mockTagCreate, mockTagIndex, mockTagShow} from '../mock/mock';
+import {mockItemCreate, mockItemIndex, mockSession, mockTagCreate, mockTagIndex, mockTagShow} from '../mock/mock';
 
 export class Http {
   instance: AxiosInstance;
@@ -11,7 +11,7 @@ export class Http {
   }
 
   // read
-  get<R = unknown>(url: string, query?: Record<string, string>, config?: Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>) {
+  get<R = unknown>(url: string, query?: Record<string, string|number>, config?: Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>) {
     return this.instance.request<R>({...config, url: url, params: query, method: 'get'});
   }
 
@@ -52,6 +52,9 @@ const mock = (response: AxiosResponse) => {
     case 'tagShow':
       [response.status, response.data] = mockTagShow(response.config);
       return true;
+    case 'itemIndex':
+      [response.status, response.data] = mockItemIndex(response.config)
+      return true
     default:
       return false;
   }
