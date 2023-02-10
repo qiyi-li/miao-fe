@@ -1,7 +1,13 @@
 export class Time {
     date: Date;
-    constructor(date = new Date()) {
+    constructor(date?: string | Date) {
+      if (date === undefined) {
+        this.date = new Date();
+      } else if (typeof date === 'string') {
+        this.date = new Date(date);
+      } else {
         this.date = date
+      }
     }
   format(pattern = 'YYYY-MM-DD') {
         const year = this.date.getFullYear()
@@ -30,6 +36,9 @@ export class Time {
     }
     lastDayOfYear() {
     return new Time(new Date(this.date.getFullYear() + 1, 0, 0, 0, 0, 0));
+    }
+    getTimestamp() {
+      return this.date.getTime()
     }
   getRaw() {
         return this.date

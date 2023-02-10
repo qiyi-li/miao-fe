@@ -5,6 +5,9 @@ import { Bars } from '../Bar/Bar';
 import { LineChart } from '../LineChart/LineChart';
 import { PieChart } from '../PieChart/PieChart';
 import { http } from '../../../shared/HttpClient';
+import { Time } from '../../../shared/time';
+
+const DAY = 24 * 3600 * 1000
 
 
 type Data1Item = {happen_at:string, amount: number}
@@ -23,10 +26,20 @@ export const Charts = defineComponent({
   setup: (props, context) => {
     const category = ref('expenses')
     const data1 = ref<Data1>([])
-    const betterData1 = computed(()=> {
-      return data1.value.map(item=>
-        [item.happen_at, item.amount] as [string, number]
-      )
+    const betterData1 = computed<[string, number][]>(()=> {
+      if(!props.startDate || !props.endDate) {
+        return []
+      }
+      const diff = new Date(props.endDate).getTime() - new Date(props.startDate).getTime()
+      const n = diff / DAY + 1
+      return Array.from({length: n}).map((_, i)=>{
+        const time = new Time(props.startDate+'T00:00:00.000+0800').add(i, 'day').getTimestamp()
+        const item = data1.value[0]
+        const amount = (item && new Date(item.happen_at).getTime() === time)
+          ? data1.value.shift()!.amount
+          : 0
+        return [new Date(time).toISOString(), amount]
+      })
     })
 
     onMounted(async ()=>{
