@@ -4,7 +4,7 @@ import { Charts } from '../../components/Statistics/Charts/Charts';
 export const StatisticsPage = defineComponent({
   setup: (props, context) => {
     return () => (
-      <TimeTabsLayouts component={Charts} />
+      <TimeTabsLayouts component={Charts} hideThisYear={true}/>
     )
   }
 }) 
