@@ -7,4 +7,4 @@ export const StatisticsPage = defineComponent({
       <TimeTabsLayouts component={Charts} />
     )
   }
-})
+}) 
