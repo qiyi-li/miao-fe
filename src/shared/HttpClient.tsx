@@ -1,4 +1,5 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
+import { Toast } from 'vant';
 import {
   mockItemCreate,
   mockItemIndex,
@@ -83,9 +84,24 @@ http.instance.interceptors.request.use(config => {
   if (jwt) {
     config.headers!.Authorization = `Bearer ${jwt}`;
   }
+  console.log( config._loading)
+  if(config._loading===true){
+    Toast.loading({
+      message:'加载中',
+      forbidClick:true,
+      className:'toast-wrapper',
+      duration:0
+    })
+  }
   return config;
 });
-
+http.instance.interceptors.response.use((res)=>{
+  Toast.clear()
+  return res
+},(err)=>{
+  Toast.clear()
+  throw err
+})
 http.instance.interceptors.response.use(response => {
   mock(response);
   if(response.status>=400){

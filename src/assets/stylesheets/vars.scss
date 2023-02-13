@@ -28,7 +28,7 @@
   --list-amount-text: var(--amount-text);
   --list-tag-text: #333;
   --list-time-text: var(--date-text);
-  --main: #5c33be;
+  --main: rgb(92, 51, 190);
   --navbar-bg-end: var(--welcome-bg-end);
   --navbar-bg-start: var(--welcome-bg-start);
   --navbar-text: white;
@@ -36,6 +36,7 @@
   --overlay-mask-bg: rgba(0, 0, 0, 0.5);
   --overlay-user-bg: #5C33BE;
   --overlay-user-text: white;
+  --select-bg: rgba(92, 51, 190,0.35);
   --tabs-indicator-bg: rgba(255, 255, 255, 0.5);
   --tag-bg: #EFEFEF;
   --text: #333;

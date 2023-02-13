@@ -49,7 +49,7 @@ export const SignIn = defineComponent({
         {key: 'code', type: 'required', value: true},
       ], formData));
       if (!judgeError(errors)) {
-        const response = await http.post<{ jwt: string }>('/session', formData).catch((err) => {
+        const response = await http.post<{ jwt: string }>('/session', formData, {_loading:true}).catch((err) => {
           if (err.response.status === 422) {
             Object.assign(errors, err.response.data);
           }
@@ -64,7 +64,7 @@ export const SignIn = defineComponent({
     };
     const sendValidationCode = async () => {
       on();
-      const response = await http.post('/validation_codes', {email: formData.email})
+      const response = await http.post('/validation_codes', {email: formData.email}, {_loading:true})
         .catch((e: any) => {
           if (e.response.status === 422) {
             Object.assign(errors, e.response.data.errors);

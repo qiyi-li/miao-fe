@@ -34,7 +34,6 @@ export const EmojiSelect = defineComponent({
         ]
 
         const onClickEmoji = (emoji: string) => {
-            console.log(emoji)
             if (props.onUpdateModelValue) {
               props.onUpdateModelValue(emoji)
             } else {

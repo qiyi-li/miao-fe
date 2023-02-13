@@ -51,7 +51,7 @@ export const Charts = defineComponent({
         group_by: 'happen_at',
         kind: category.value,
         _mock: 'itemSummary'
-      })
+      },{_loading:true})
       console.log({response})
       data1.value = response.data.groups
     }
@@ -74,7 +74,7 @@ export const Charts = defineComponent({
         kind: category.value,
         group_by: 'tag_id',
         _mock: 'itemSummary'
-      })
+      },{_loading:true})
       data2.value = response.data.groups
     }
 

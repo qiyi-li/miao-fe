@@ -21,7 +21,7 @@ export const Tags = defineComponent({
         kind: props.kind,
         page: (page + 1).toString(),
         _mock: 'tagIndex'
-      });
+      },{_loading:true});
     });
     const router = useRouter();
     const timer = ref<number>();

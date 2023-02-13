@@ -28,7 +28,7 @@ export const TagEdit = defineComponent({
       });
       await http.delete(`/tags/${numberId}`, {
         withItems: options?.withItems ? 'true' : 'false'
-      }).catch(onError);
+      },{_loading:true}).catch(onError);
       router.back();
     };
     const numberId = parseInt(route.params.id.toString());

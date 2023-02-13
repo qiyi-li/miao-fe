@@ -1,6 +1,6 @@
 import { Dialog } from 'vant';
 import { defineComponent, onMounted, PropType, ref } from 'vue';
-import { RouterLink, useRoute } from 'vue-router';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 import { Icon } from '../Icon/Icon';
 import { mePromise } from '../me';
 import s from './Overlay.module.scss';
@@ -14,12 +14,14 @@ export const Overlay = defineComponent({
         const close = () => {
             props.onClose?.()
         }
+        const router = useRouter()
         const onSignOut = async()=>{
             await Dialog.confirm({
                 title:'确认',
                 message:'确认退出登录？'
             })
             localStorage.removeItem('jwt')
+            router.push('/')
         }
         const me = ref<User>()
         onMounted(async()=>{
@@ -46,16 +48,22 @@ export const Overlay = defineComponent({
                 </section>
                 <nav>
                     <ul class={s.action_list}>
-                        <li>
+                        <li onClick={()=>route.fullPath==='/statistics'&&close()}>
                             <RouterLink to="/statistics" class={s.action}>
                                 <Icon name="charts" class={s.icon} />
                                 <span>统计图表</span>
                             </RouterLink>
                         </li>
                         <li>
-                            <RouterLink to="/export" class={s.action}>
-                                <Icon name="export" class={s.icon} />
-                                <span>导出数据</span>
+                            <RouterLink to="/items/create" class={s.action}>
+                                <Icon name="add" class={s.icon} />
+                                <span>开始记账</span>
+                            </RouterLink>
+                        </li>
+                        <li onClick={()=>route.fullPath==='/items'&&close()}>
+                            <RouterLink to="/items" class={s.action}>
+                                <Icon name="cloud" class={s.icon} />
+                                <span>记账列表</span>
                             </RouterLink>
                         </li>
                         <li>

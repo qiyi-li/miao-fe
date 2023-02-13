@@ -6,6 +6,9 @@
   }
   .formLabel {
     display: block;
+    .formItem_name{
+      line-height: 1em;
+    }
   }
   .formItem {
     min-height: var(--input-min-height);

@@ -6,6 +6,7 @@ import {Tab, Tabs} from '../../shared/Tabs/Tabs';
 import {Time} from '../../shared/time';
 import s from './TimeTabsLayouts.module.scss';
 import {MainLayout} from './MainLayout';
+import dayjs from 'dayjs';
 
 const demo = defineComponent({
   props: {
@@ -62,6 +63,12 @@ export const TimeTabsLayouts = defineComponent({
     const onSubmitCustomTime = (e: Event) => {
       e.preventDefault();
       refOverlayVisible.value = false;
+      if(dayjs(tempTime.start).isSame(tempTime.end)){
+        return window.alert('开始时间与结束时间不能一致')
+      }
+      if(dayjs(tempTime.start).isAfter(tempTime.end)){
+        Object.assign(customTime, {start:tempTime.end,end:tempTime.start})
+      }
       Object.assign(customTime, tempTime)
     };
     return () => (<MainLayout>{
