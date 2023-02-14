@@ -5,6 +5,9 @@ import {http} from '../../../shared/HttpClient';
 import {Button} from '../../../shared/Button/Button';
 import {Money} from '../../../shared/Money/Money';
 import {Datetime} from '../../../shared/Datetime/Datetime';
+import { RouterLink } from 'vue-router';
+import { Center } from '../../../shared/Center/Center';
+import { Icon } from '../../../shared/Icon/Icon';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -60,7 +63,7 @@ export const ItemSummary = defineComponent({
       await fetchItemsBalance();
     });
     return () => (<div>
-      {items.value ? (
+      {items.value&&items.value.length>0 ? (
         <>
           <ul class={s.total}>
             <li>
@@ -99,8 +102,21 @@ export const ItemSummary = defineComponent({
             }
           </div>
         </>
-      ) : (<div>记录为空</div>)}
-      <FloatButton iconName="add"/>
+      ) : (
+      <div>
+          <Center class={s.pig_wrapper}>
+            <Icon name="pig" class={s.pig} />
+        </Center>
+
+        <div class={s.button_wrapper}>
+            <RouterLink to='/items/create'>
+                <Button class={s.button}>开始记账</Button>
+            </RouterLink>
+        </div>
+      </div>)}
+      <RouterLink to='/items/create'>
+          <FloatButton iconName={'add'} />
+      </RouterLink>
     </div>);
   }
 });

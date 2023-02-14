@@ -98,7 +98,7 @@ export const InputPad = defineComponent({
     return () => <>
       <div class={s.dateAndAmount}>
         <Popup show={show.value} position={'bottom'} onClick-overlay={hideDatePicker}>
-          <DatetimePicker value={props.happenAt} title={'选择年月日'} type={'date'} onConfirm={setDate}
+          <DatetimePicker modelValue={props.happenAt ? new Date(props.happenAt) : new Date()} title={'选择年月日'} type={'date'} onConfirm={setDate}
                           onCancel={hideDatePicker}/>
         </Popup>
         <span class={s.date} onClick={showDatePicker}>

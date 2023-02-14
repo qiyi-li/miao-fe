@@ -11,7 +11,11 @@ export const BackIcon = defineComponent({
       if (return_to) {
         await router.push(return_to.toString());
       } else {
-        router.back();
+        if(route.fullPath==='/items/create'){
+          router.push('/items')
+        }else{
+          router.back();
+        }
       }
     };
     return () => <Icon name="left" onClick={onClick}/>;
