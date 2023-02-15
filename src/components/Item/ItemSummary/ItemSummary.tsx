@@ -8,6 +8,7 @@ import {Datetime} from '../../../shared/Datetime/Datetime';
 import { RouterLink } from 'vue-router';
 import { Center } from '../../../shared/Center/Center';
 import { Icon } from '../../../shared/Icon/Icon';
+import _ from 'lodash';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -83,11 +84,11 @@ export const ItemSummary = defineComponent({
             {items.value.map((item) => (
               <li>
                 <div class={s.sign}>
-                  <span>{item.tags![0].sign}</span>
+                  <span>{!_.isEmpty(item.tags)?item.tags![0].sign:'💰'}</span>
                 </div>
                 <div class={s.text}>
-                  <div class={s.tagAndAmount}>
-                    <span class={s.tag}>{item.tags![0].name}</span>
+                  <div class={s.tagAndAmount}> 
+                    <span class={s.tag}>{!_.isEmpty(item.tags)?item.tags![0].name : '未分类'}</span>
                     <span class={s.amount}>￥<Money value={item.amount}/></span>
                   </div>
                   <div class={s.time}><Datetime value={item.happen_at}/></div>
