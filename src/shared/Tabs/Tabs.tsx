@@ -1,5 +1,10 @@
 import { defineComponent, PropType } from 'vue';
 import s from './Tabs.module.scss'
+
+const nameMap={
+    'income':'收入',
+    'expenses':'支出'
+}
 export const Tabs = defineComponent({
     props: {
         selected: {
@@ -31,15 +36,15 @@ export const Tabs = defineComponent({
             <ol class={[s.tabs_nav,cp+'_tabs_nav']}>
                 {eles.map((item, index) => {
                     return <li key={index}
-                        onClick={() => context.emit('update:selected', item.props?.name)}
-                        class={[item.props?.name === props.selected ? s.selected : '',cp+'_tabs_nav_item']}>
+                        onClick={() => context.emit('update:selected', item.props?.value)}
+                        class={[item.props?.value === props.selected ? s.selected : '',cp+'_tabs_nav_item']}>
                         {item.props?.name}
                     </li>
                 })}
             </ol>
             <main>
                 <div key={props.selected}>
-                    {eles.find(item=>item.props?.name===props.selected)}
+                    {eles.find(item=>item.props?.value===props.selected)}
                 </div>
             </main>
         </div>)
@@ -50,8 +55,13 @@ export const Tabs = defineComponent({
 export const Tab = defineComponent({
     props: {
         name: {
-            type: String as PropType<string>
-        }
+            type: String as PropType<string>,
+            required:true
+        },
+        value: {
+            type: String as PropType<string>,
+            required:true
+        },
     },
     setup(props, context) {
         return () => (<div>{context.slots.default?.()}</div>)

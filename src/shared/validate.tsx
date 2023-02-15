@@ -1,16 +1,18 @@
+import _ from 'lodash'
+
 interface FData {
-    [k: string]: string | number | null | undefined | FData
+    [k: string]: JSONValue
 }
 type Rule<T> = {
     key: keyof T,
     message?: string
-} & ({ type: 'required', value: boolean } | { type: 'pattern', value: RegExp, message: string })
+} & ({ type: 'required', value: boolean } | { type: 'pattern', value: RegExp, message: string } | {type: 'notEqual',value: JSONValue})
 
 type Rules<T> = Rule<T>[]
 
 export type { Rules, Rule, FData }
 
-export const validate = <T extends FData>(Rules: Rules<T>, formData: T) => {
+export const  validate = <T extends FData>(Rules: Rules<T>, formData: T) => {
     type Errors = {
         [k in keyof T]?: string[]
     }
@@ -26,10 +28,17 @@ export const validate = <T extends FData>(Rules: Rules<T>, formData: T) => {
                     errors[key]?.push(message)
                 }
                 break;
-            case "required":
-                if (value && (!itemValue)) {
+            case 'notEqual':
+                console.log(key,itemValue,value)
+                if(value!==undefined && value===itemValue){
                     errors[key] = errors[key] ?? []
-                    errors[key]?.push('必填')
+                    errors[key]?.push(message||'值不能为'+value)
+                }
+                break;
+            case "required":
+                if (value && typeof itemValue === 'object'?_.isEmpty(itemValue):_.isUndefined(itemValue)) {
+                    errors[key] = errors[key] ?? []
+                    errors[key]?.push(message||'必填')
                 }
                 break;
             default:
