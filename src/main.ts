@@ -23,13 +23,13 @@ meStore.fetchMe()
 
 router.beforeEach(async (to, from) => {
     if (to.path === '/' || to.path.startsWith('/welcome') || to.path.startsWith('/sign_in')
-      || to.path === '/start') {
+      || to.path === '/items') {
         return true
     } else {
         return await meStore.mePromise!.then(
           () => true,
           () => {
-              return '/sign_in?return_to=' + to.path;}
+              return '/sign_in?return_to=' + from.path;}
         )
     }
 })

@@ -13,11 +13,9 @@ import { Third } from "../components/Welcome/Third";
 import { ThirdActions } from "../components/Welcome/ThirdActions";
 import { ItemPage } from "../views/ItemPage/ItemPage";
 import { SignIn } from "../views/SignIn/SignIn";
-import { Start } from "../views/start/Start";
 import { StatisticsPage } from "../views/Statistics/Statistics";
 import { Tag } from "../views/Tag/Tag";
 import { Welcome } from "../views/welcome/Welcome";
-import {http} from '../shared/HttpClient';
 
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/welcome' },
@@ -25,7 +23,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/welcome',
     component: Welcome,
     beforeEnter: (to, from, next) => {
-      localStorage.getItem('skipFeatures') === 'yes' ? next('/start') : next()
+      localStorage.getItem('skipFeatures') === 'yes' ? next('/items') : next()
     },
     children: [
       { path: '', redirect: '/welcome/1', },
@@ -34,10 +32,6 @@ export const routes: RouteRecordRaw[] = [
       { path: '3', name: "Welcome3", components: { main: Third, footer: ThirdActions }, },
       { path: '4', name: "Welcome4", components: { main: Forth, footer: ForthActions }, },
     ]
-  },
-  {
-    path: '/start',
-    component: Start
   },
   {
     path: '/items',
