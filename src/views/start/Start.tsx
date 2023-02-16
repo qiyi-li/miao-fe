@@ -20,7 +20,7 @@ export const Start = defineComponent({
                         </Center>
 
                         <div class={s.button_wrapper}>
-                            <RouterLink to='/items/create'>
+                            <RouterLink to='/items'>
                                 <Button class={s.button}>开始记账</Button>
                             </RouterLink>
                         </div>
