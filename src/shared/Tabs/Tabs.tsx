@@ -1,10 +1,6 @@
 import { defineComponent, PropType } from 'vue';
 import s from './Tabs.module.scss'
 
-const nameMap={
-    'income':'收入',
-    'expenses':'支出'
-}
 export const Tabs = defineComponent({
     props: {
         selected: {
@@ -23,14 +19,6 @@ export const Tabs = defineComponent({
     setup(props, context) {
         const { slots } = context
         const eles = slots.default?.() || []
-        for (let i = 0; i < eles.length; i++) {
-            if (eles[i].type !== Tab) {
-
-                // throw new Error('<Tabs> only accepts <Tab> as children')
-            } else {
-                // throw new Error('Tabs cannot use other than Tab')
-            }
-        }
         const cp = props.classPrefix
         return () => (<div class={[s.tabs,cp+'tabs']}>
             <ol class={[s.tabs_nav,cp+'_tabs_nav']}>
