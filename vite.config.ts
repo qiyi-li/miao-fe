@@ -7,7 +7,7 @@ import {VantResolver} from 'unplugin-vue-components/resolvers';
 import {svgstore} from './src/vite_plugins/svgstore';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const defaultConfig = {
   plugins: [
     vue(),
     vueJsx({
@@ -19,11 +19,23 @@ export default defineConfig({
     }),
     svgstore(),
   ],
-  server: {
-    proxy: {
-      '/api/v1': {
-        target: 'http://121.196.236.94:3000/'
+}
+
+export default defineConfig(({ command, mode }) => {
+  if (command === 'serve') {
+    const isDev = mode === 'development'
+
+    return {
+      ...defaultConfig,
+      server: {
+        proxy: {
+          '/api/v1': {
+            target: 'http://121.196.236.94:3000/'
+          }
+        }
       }
     }
+  } else {
+    return defaultConfig
   }
-});
+})

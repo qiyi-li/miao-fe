@@ -84,6 +84,7 @@ http.instance.interceptors.request.use(config => {
   if (jwt) {
     config.headers!.Authorization = `Bearer ${jwt}`;
   }
+  config.baseURL='http://121.196.236.94:3000'
   if(config._loading===true){
     Toast.loading({
       message:'加载中',
