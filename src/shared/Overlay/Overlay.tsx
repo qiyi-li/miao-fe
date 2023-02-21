@@ -22,7 +22,7 @@ export const Overlay = defineComponent({
                 message:'确认退出登录？'
             })
             localStorage.removeItem('jwt')
-            router.push('/')
+            window.location.reload()
         }
         const me = ref<User>()
         onMounted(async()=>{
@@ -49,24 +49,24 @@ export const Overlay = defineComponent({
                 </section>
                 <nav>
                     <ul class={s.action_list}>
+                        <li onClick={()=>route.fullPath==='/items'&&close()}>
+                            <RouterLink to="/items" class={s.action}>
+                                <Icon name="pig" class={s.icon} />
+                                <span>记账</span>
+                            </RouterLink>
+                        </li>
                         <li onClick={()=>route.fullPath==='/statistics'&&close()}>
                             <RouterLink to="/statistics" class={s.action}>
                                 <Icon name="charts" class={s.icon} />
                                 <span>统计图表</span>
                             </RouterLink>
                         </li>
-                        <li>
+                        {/* <li>
                             <RouterLink to="/items/create" class={s.action}>
                                 <Icon name="add" class={s.icon} />
                                 <span>开始记账</span>
                             </RouterLink>
-                        </li>
-                        <li onClick={()=>route.fullPath==='/items'&&close()}>
-                            <RouterLink to="/items" class={s.action}>
-                                <Icon name="cloud" class={s.icon} />
-                                <span>记账列表</span>
-                            </RouterLink>
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
             </div>

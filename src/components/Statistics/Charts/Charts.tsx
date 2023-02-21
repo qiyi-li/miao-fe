@@ -33,12 +33,12 @@ export const Charts = defineComponent({
       if(!props.startDate || !props.endDate) {
         return []
       }
-      const diff = new Date(props.endDate).getTime() - new Date(props.startDate).getTime()
+      const diff = new Date(props.endDate).getTime() - new Date(props.startDate).getTime() 
       const n = diff / DAY + 1
       return Array.from({length: n}).map((_, i)=>{
         const time = new Time(props.startDate+'T00:00:00.000+0800').add(i, 'day').getTimestamp()
         const item = data1.value[0]
-        const amount = (item && new Date(item.happen_at).getTime() === time)
+        const amount = (item && new Date(item.happen_at+'T00:00:00.000+0800').getTime() === time)
           ? data1.value.shift()!.amount
           : 0
         return [new Date(time).toISOString(), amount]
@@ -57,7 +57,7 @@ export const Charts = defineComponent({
     }
 
     onMounted(fetchData1)
-    watch(()=>category.value,fetchData1)
+    watch(()=>[props.startDate, props.endDate,category.value],fetchData1)
 
     const data2 = ref<Data2>([])
     const betterData2 = computed<{ name: string; value: number }[]>(() =>
@@ -79,7 +79,7 @@ export const Charts = defineComponent({
     }
 
     onMounted(fetchData2)
-    watch(()=>category.value,fetchData2)
+    watch(()=>[props.startDate, props.endDate,category.value],fetchData2)
 
     const betterData3 = computed<{tag:Tag, amount:number, percent: number}[]>(()=>{
       const total = data2.value.reduce((sum, item) => sum + item.amount, 0)

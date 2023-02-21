@@ -76,7 +76,7 @@ const mock = (response: AxiosResponse) => {
   }
 };
 
-export const http = new Http('/api/v1');
+export const http = new Http('http://121.196.236.94:3000/api/v1');
 
 // set header
 http.instance.interceptors.request.use(config => {
@@ -84,7 +84,6 @@ http.instance.interceptors.request.use(config => {
   if (jwt) {
     config.headers!.Authorization = `Bearer ${jwt}`;
   }
-  config.baseURL='http://121.196.236.94:3000/api/v1'
   if(config._loading===true){
     Toast.loading({
       message:'加载中',

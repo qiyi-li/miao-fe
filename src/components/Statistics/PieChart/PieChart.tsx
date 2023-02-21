@@ -6,6 +6,7 @@ import { getMoney } from '../../../shared/Money/Money';
 const defaultOption = {
   tooltip: {
     trigger: 'item',
+    position:'inside',
     formatter: (x: {name:string, value:number, percent: number})=>{
       const {name,value,percent} = x
       return `${name}: ￥${getMoney(value)} 占比 ${percent}%`
