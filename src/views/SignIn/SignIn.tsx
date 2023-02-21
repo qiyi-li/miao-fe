@@ -7,7 +7,6 @@ import s from './SignIn.module.scss';
 import {judgeError, validate} from '../../shared/validate';
 import {http} from '../../shared/HttpClient';
 import {useBool} from '../../hooks/useBool';
-import {history} from '../../shared/history';
 import {useRoute, useRouter} from 'vue-router';
 import {BackIcon} from '../../shared/BackIcon/BackIcon';
 import { useMeSotre } from '../../stores/useMeStore';
@@ -103,3 +102,4 @@ export const SignIn = defineComponent({
     );
   }
 });
+export default SignIn

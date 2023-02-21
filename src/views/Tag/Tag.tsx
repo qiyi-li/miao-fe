@@ -1,6 +1,5 @@
 import { defineComponent, PropType } from 'vue';
 import { RouterView } from 'vue-router';
-import s from './Tags.module.scss'
 export const Tag = defineComponent({
     props: {
         name: {
@@ -11,3 +10,4 @@ export const Tag = defineComponent({
         return () => (<RouterView />)
     }
 })
+export default Tag

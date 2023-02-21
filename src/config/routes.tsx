@@ -11,17 +11,12 @@ import { Second } from "../components/Welcome/Second";
 import { SecondActions } from "../components/Welcome/SecondActions";
 import { Third } from "../components/Welcome/Third";
 import { ThirdActions } from "../components/Welcome/ThirdActions";
-import { ItemPage } from "../views/ItemPage/ItemPage";
-import { SignIn } from "../views/SignIn/SignIn";
-import { StatisticsPage } from "../views/Statistics/Statistics";
-import { Tag } from "../views/Tag/Tag";
-import { Welcome } from "../views/welcome/Welcome";
 
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/welcome' },
   {
     path: '/welcome',
-    component: Welcome,
+    component: ()=>import('../views/welcome/Welcome'),
     beforeEnter: (to, from, next) => {
       localStorage.getItem('skipFeatures') === 'yes' ? next('/items') : next()
     },
@@ -35,19 +30,19 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/items',
-    component: ItemPage,
+    component: ()=>import('../views/ItemPage/ItemPage'),
     children: [
       { path: '', component: ItemList },
       { path: 'create', component: ItemCreate }
     ]
   },
   {
-    path: '/tags', component: Tag,
+    path: '/tags', component: ()=>import('../views/Tag/Tag'),
     children: [
       { path: 'create', component: TagCreate },
       { path: ':id/edit', component: TagEdit }
     ]
   },
-  { path: '/sign_in', component: SignIn },
-  { path: '/statistics', component: StatisticsPage }
+  { path: '/sign_in', component: ()=>import("../views/SignIn/SignIn") },
+  { path: '/statistics', component: ()=>import("../views/Statistics/Statistics") }
 ]
