@@ -33,6 +33,3 @@ router.beforeEach(async (to, from) => {
         )
     }
 })
-if(DEBUGE){
-    console.log('顶顶顶顶顶顶顶顶顶顶顶')
-}

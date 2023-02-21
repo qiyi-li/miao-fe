@@ -24,8 +24,8 @@ export const SignIn = defineComponent({
     const refValidationCode = ref<any>();
     const {ref: refValidationButtonDisabled, on, off} = useBool(false);
     const formData = reactive({
-      email: '',
-      code: '',
+      email: 'llqiyi@outlook.com',
+      code: '123456',
     });
     const errors = reactive({
       email: [],
