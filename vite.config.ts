@@ -47,6 +47,7 @@ export default defineConfig(({ command, mode }) => {
 
     return {
       ...defaultConfig,
+      define:{DEBUGE:true},
       server: {
         proxy: {
           '/api/v1': {
@@ -56,6 +57,6 @@ export default defineConfig(({ command, mode }) => {
       }
     }
   } else {
-    return defaultConfig
+    return {...defaultConfig,define:{DEBUGE:false}}
   }
 })
