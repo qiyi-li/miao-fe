@@ -4,7 +4,7 @@ export const Forth = () => (
     <svg>
       <use xlinkHref='#cloud'></use>
     </svg>
-    <h2>每日提醒<br />不遗漏每一笔账单</h2>
+    <h2>存储服务<br />更换设备也不用担心丢失</h2>
   </div>
 )
 

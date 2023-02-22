@@ -82,8 +82,8 @@ export const SignIn = defineComponent({
           icon: () => <BackIcon/>,
           main: () => <div class={s.wrapper}>
             <div class={s.logo}>
-              <Icon name="mangosteen" class={s.icon}/>
-              <h1>山竹记账</h1>
+              <Icon name="miao" class={s.icon}/>
+              <h1>小喵记账</h1>
             </div>
             <Form onSubmit={onSubmit}>
               <FormItem label="邮箱地址" type="text"

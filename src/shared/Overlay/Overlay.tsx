@@ -51,8 +51,8 @@ export const Overlay = defineComponent({
                     <ul class={s.action_list}>
                         <li onClick={()=>route.fullPath==='/items'&&close()}>
                             <RouterLink to="/items" class={s.action}>
-                                <Icon name="pig" class={s.icon} />
-                                <span>记账</span>
+                                <Icon name="miao" class={s.icon} />
+                                <span>去记账</span>
                             </RouterLink>
                         </li>
                         <li onClick={()=>route.fullPath==='/statistics'&&close()}>

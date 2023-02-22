@@ -18,7 +18,7 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 ### deploy
 ```bash
 pnpm build --base /dist
-bin/coscli-linux cp -r dist cos://mangosteen-1300265374
+bin/coscli-linux cp -r dist cos://miao-1300265374
 ```
 
 ### path
