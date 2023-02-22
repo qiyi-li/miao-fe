@@ -2,9 +2,7 @@ import {defineComponent, PropType, ref} from 'vue';
 import {Icon} from '../../../shared/Icon/Icon';
 import s from './InputPad.module.scss';
 import {DatetimePicker, Popup} from 'vant';
-import 'vant/es/datetime-picker/style';
 import dayjs from 'dayjs';
-import 'vant/es/popup/style';
 import {calculateAmount} from '../../../shared/helper';
 
 export const InputPad = defineComponent({
@@ -98,7 +96,9 @@ export const InputPad = defineComponent({
     return () => <>
       <div class={s.dateAndAmount}>
         <Popup show={show.value} position={'bottom'} onClick-overlay={hideDatePicker}>
-          <DatetimePicker modelValue={props.happenAt ? new Date(props.happenAt) : new Date()} title={'选择年月日'} type={'date'} onConfirm={setDate}
+          <DatetimePicker modelValue={props.happenAt ? new Date(props.happenAt) : new Date()} title={'选择年月日'}
+                          type={'date'}
+                          onConfirm={setDate}
                           onCancel={hideDatePicker}/>
         </Popup>
         <span class={s.date} onClick={showDatePicker}>

@@ -6,7 +6,6 @@ import {TagForm} from '../TagForm/TagForm';
 import {BackIcon} from '../../../shared/BackIcon/BackIcon';
 import {useRoute, useRouter} from 'vue-router';
 import {Dialog} from 'vant';
-import 'vant/lib/dialog/style';
 import {http} from '../../../shared/HttpClient';
 
 export const TagEdit = defineComponent({
