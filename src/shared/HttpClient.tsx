@@ -33,7 +33,7 @@ export class Http {
 
 
 
-export const http = new Http('http://121.196.236.94:3000/api/v1');
+export const http = new Http('http://162.14.67.92:3000/api/v1');
 
 // set header
 http.instance.interceptors.request.use(config => {
